@@ -1,0 +1,26 @@
+# Python
+__pycache__/
+*.pyc
+.env
+venv/
+.venv/
+
+# Django
+db.sqlite3
+staticfiles/
+
+# IDE
+.idea/
+.vscode/
+
+# OS
+.DS_Store
+
+# Archives & docs
+*.zip
+*.pdf
+*.docx
+*.pptx
+
+# Node (на будущее)
+node_modules/
