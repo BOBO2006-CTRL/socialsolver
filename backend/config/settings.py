@@ -1,15 +1,18 @@
 import os
 from pathlib import Path
 
+from django.conf.global_settings import CSRF_TRUSTED_ORIGINS
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY", "unsafe-secret-key")
 
-DEBUG = os.environ.get("DJANGO_DEBUG") == "False"
+DEBUG = os.environ.get("DJANGO_DEBUG") == "True"
 
 ALLOWED_HOSTS = [
     "localhost",
     "127.0.0.1",
+    "socialsolver-okde.onrender.com"
     ".onrender.com",
 ]
 
@@ -71,3 +74,7 @@ LOGIN_REDIRECT_URL = "/issues/"
 LOGOUT_REDIRECT_URL = "/accounts/login/"
 
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+
+CSRF_TRUSTED_ORIGINS = [
+    "https://socialsolver-okde.onrender.com",
+]
