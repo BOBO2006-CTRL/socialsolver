@@ -1,0 +1,24 @@
+{% extends "issues/base.html" %}
+{% block content %}
+
+<h2 class="fw-bold mb-4">Добавить проблему</h2>
+
+<form method="post" class="card shadow-sm p-4 border-0">
+    {% csrf_token %}
+
+    <div class="mb-3">
+        <label class="form-label">Название проблемы</label>
+        <input type="text" name="title" class="form-control" required>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Описание</label>
+        <textarea name="description" class="form-control" rows="5" required></textarea>
+    </div>
+
+    <button class="btn btn-dark btn-lg">
+        💾 Сохранить
+    </button>
+</form>
+
+{% endblock %}

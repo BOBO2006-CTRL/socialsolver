@@ -1,0 +1,103 @@
+{% extends "issues/base.html" %}
+
+{% block content %}
+
+<!-- ФИЛЬТРЫ -->
+<form method="get" class="row g-3 mb-4">
+    <div class="col-md-4">
+        <input
+                type="text"
+                name="q"
+                class="form-control"
+                placeholder="Поиск по названию проблемы"
+                value="{{ query }}"
+        >
+    </div>
+
+    <div class="col-md-3">
+        <select name="category" class="form-select">
+            <option value="">Все категории</option>
+            {% for key, name in categories %}
+            <option value="{{ key }}" {% if key == category %}selected{% endif %}>
+                {{ name }}
+            </option>
+            {% endfor %}
+        </select>
+    </div>
+
+    <div class="col-md-3">
+        <select name="status" class="form-select">
+            <option value="">Все статусы</option>
+            <option value="new" {% if status == "new" %}selected{% endif %}>
+            На рассмотрении
+            </option>
+            <option value="done" {% if status == "done" %}selected{% endif %}>
+            Решено
+            </option>
+        </select>
+    </div>
+
+    <div class="col-md-2">
+        <button class="btn btn-outline-dark w-100">
+            Фильтровать
+        </button>
+    </div>
+</form>
+
+<!-- ЗАГОЛОВОК -->
+<h3 class="mb-4">Зафиксированные проблемы</h3>
+
+{% if issues %}
+<div class="row row-cols-1 row-cols-md-2 g-4">
+    {% for issue in issues %}
+    <div class="col">
+        <div class="card h-100 shadow-sm">
+
+            <div class="card-body">
+
+                <!-- КАТЕГОРИЯ -->
+                <span class="badge bg-secondary mb-2">
+                    {{ issue.get_category_display }}
+                </span>
+
+                <!-- СТАТУС -->
+                {% if issue.status == "done" %}
+                <span class="badge bg-success mb-2 ms-1">
+                        Решено
+                    </span>
+                {% else %}
+                <span class="badge bg-warning text-dark mb-2 ms-1">
+                        На рассмотрении
+                    </span>
+                {% endif %}
+
+                <!-- ЗАГОЛОВОК -->
+                <h5 class="card-title mt-2">
+                    {{ issue.title }}
+                </h5>
+
+                <!-- ДАТА -->
+                <p class="text-muted mb-0">
+                    {{ issue.created_at|date:"d.m.Y" }}
+                </p>
+            </div>
+
+            <!-- КНОПКА -->
+            <div class="card-footer bg-white border-0 text-end">
+                <a href="{% url 'issues:issue_detail' issue.id %}"
+                   class="btn btn-sm btn-outline-primary">
+                    Подробнее
+                </a>
+            </div>
+
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% else %}
+<div class="alert alert-info">
+    В системе пока не зафиксировано ни одной социальной проблемы.
+</div>
+{% endif %}
+
+{% endblock %}
