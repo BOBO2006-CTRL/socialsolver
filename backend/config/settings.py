@@ -7,13 +7,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY", "unsafe-secret-key")
 
-DEBUG = os.environ.get("DJANGO_DEBUG", "False") == "True"
+DEBUG = os.environ.get("DJANGO_DEBUG") == "True"
 
-ALLOWED_HOSTS = os.environ.get(
-    "DJANGO_ALLOWED_HOSTS",
-    "localhost 127.0.0.1 .onrender.com"
-)
-
+ALLOWED_HOSTS = [
+    "localhost",
+    "127.0.0.1",
+    ".onrender.com",
+]
 
 INSTALLED_APPS = [
     "django.contrib.admin",
@@ -74,6 +74,3 @@ LOGOUT_REDIRECT_URL = "/accounts/login/"
 
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
-CSRF_TRUSTED_ORIGINS = [
-    "https://*.onrender.com",
-]
