@@ -20,9 +20,11 @@ class Issue(models.Model):
     description = models.TextField()
 
     category = models.CharField(
-        max_length=20,
+        max_length=100,
         choices=CATEGORY_CHOICES,
-        default="other"
+        default="other",
+        blank=True,     # 🔹 ВАЖНО
+        null=True       # 🔹 ВАЖНО
     )
 
     status = models.CharField(
